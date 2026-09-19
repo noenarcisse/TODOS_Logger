@@ -1,7 +1,6 @@
-package formatter
+package todos
 
 import (
-	"TODOS_Logger/internal/todos"
 	"html"
 
 	"fmt"
@@ -10,7 +9,7 @@ import (
 	"strings"
 )
 
-func ToConsole(tl todos.TodoLine) string {
+func FormatToConsole(tl TodoLine) string {
 	sb := strings.Builder{}
 
 	sb.WriteString(tl.File)
@@ -27,7 +26,7 @@ func ToConsole(tl todos.TodoLine) string {
 	return sb.String()
 }
 
-func ToFile(tl todos.TodoLine) string {
+func FormatToFile(tl TodoLine) string {
 	sb := strings.Builder{}
 
 	sb.WriteString(tl.File)
@@ -44,7 +43,7 @@ func ToFile(tl todos.TodoLine) string {
 	return sb.String()
 }
 
-func ToMd(tl todos.TodoLine) string {
+func FormatToMd(tl TodoLine) string {
 	sb := strings.Builder{}
 
 	filename := fmt.Sprintf("[%s:%s](vscode://file/%s:%s)", tl.File, strconv.Itoa(tl.LineNum), tl.File, strconv.Itoa(tl.LineNum))
@@ -64,7 +63,7 @@ func ToMd(tl todos.TodoLine) string {
 	return sb.String()
 }
 
-func ToHTML(tl todos.TodoLine) string {
+func FormatToHTML(tl TodoLine) string {
 	sb := strings.Builder{}
 
 	//vscode://

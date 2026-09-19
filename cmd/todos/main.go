@@ -4,7 +4,6 @@ import (
 	ae "TODOS_Logger/internal/app_error"
 	"TODOS_Logger/internal/exectime"
 	"TODOS_Logger/internal/help"
-	"TODOS_Logger/internal/logger"
 	"TODOS_Logger/internal/todos"
 	"TODOS_Logger/internal/walker"
 	"TODOS_Logger/pkg/console"
@@ -109,15 +108,15 @@ func todoLogger() {
 		}
 
 		if _, ok := options["c"]; ok {
-			log := logger.CreateLog(todoLines) //todo maybe be unused for md file or html
+			log := todos.CreateLog(todoLines) //todo maybe be unused for md file or html
 
-			logger.WriteToConsole(log)
+			todos.WriteToConsole(log)
 			delete(options, "c")
 		}
 
 		if _, ok := options["f"]; ok {
-			log := logger.CreateLog(todoLines) //todo maybe be unused for md file or html
-			err := logger.WriteToFile(log)
+			log := todos.CreateLog(todoLines) //todo maybe be unused for md file or html
+			err := todos.WriteToFile(log)
 			if err != nil {
 				panic(err)
 			}
@@ -125,8 +124,8 @@ func todoLogger() {
 		}
 
 		if _, ok := options["md"]; ok {
-			log := logger.CreateLogToMd(todoLines)
-			err := logger.WriteToSpecialFile(log, logfilename, "md")
+			log := todos.CreateLogToMd(todoLines)
+			err := todos.WriteToSpecialFile(log, logfilename, "md")
 			if err != nil {
 				panic(err)
 			}
@@ -134,9 +133,9 @@ func todoLogger() {
 		}
 		if _, ok := options["html"]; ok {
 
-			log := logger.CreateLogToHTML(todoLines)
-			html2 := logger.PrepareHTMLContent(files, templateHtml, css, log, logfilename)
-			logger.WriteToSpecialFile(html2, logfilename, "html")
+			log := todos.CreateLogToHTML(todoLines)
+			html2 := todos.PrepareHTMLContent(files, templateHtml, css, log, logfilename)
+			todos.WriteToSpecialFile(html2, logfilename, "html")
 			delete(options, "html")
 		}
 
@@ -146,8 +145,8 @@ func todoLogger() {
 		}
 
 	} else {
-		log := logger.CreateLog(todoLines) //todo maybe be unused for md file or html
+		log := todos.CreateLog(todoLines) //todo maybe be unused for md file or html
 
-		logger.WriteToConsole(log)
+		todos.WriteToConsole(log)
 	}
 }

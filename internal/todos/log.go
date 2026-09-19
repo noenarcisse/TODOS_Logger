@@ -1,17 +1,14 @@
-package logger
+package todos
 
 import (
-	"TODOS_Logger/internal/formatter"
-	"TODOS_Logger/internal/todos"
 	"html"
-	"os"
 	"strings"
 )
 
 // todo wip
-type FormatterFunc func(todos.TodoLine) string
+type FormatFunc func(TodoLine) string
 
-func createLog(tds []todos.TodoLine, f FormatterFunc) string {
+func createLog(tds []TodoLine, f FormatFunc) string {
 	sb := strings.Builder{}
 	for _, td := range tds {
 		sb.WriteString(f(td))
@@ -21,23 +18,14 @@ func createLog(tds []todos.TodoLine, f FormatterFunc) string {
 }
 
 // Create a full text log based on the TODOS found
-func CreateLog(tds []todos.TodoLine) string {
-	return createLog(tds, formatter.ToConsole)
+func CreateLog(tds []TodoLine) string {
+	return createLog(tds, FormatToConsole)
 }
-func CreateLogToMd(tds []todos.TodoLine) string {
-	return createLog(tds, formatter.ToMd)
+func CreateLogToMd(tds []TodoLine) string {
+	return createLog(tds, FormatToMd)
 }
-func CreateLogToHTML(tds []todos.TodoLine) string {
-	return createLog(tds, formatter.ToHTML)
-}
-
-func createLogDir(dirname string) error {
-
-	err := os.MkdirAll(dirname, 0755)
-	if err != nil {
-		return err
-	}
-	return nil
+func CreateLogToHTML(tds []TodoLine) string {
+	return createLog(tds, FormatToHTML)
 }
 
 func PrepareHTMLContent(files []string, templateHtml string, css string, log string, logfilename string) string {

@@ -1,4 +1,4 @@
-package logger
+package todos
 
 import (
 	"fmt"
@@ -6,6 +6,18 @@ import (
 	"path/filepath"
 	"time"
 )
+
+//could go in another slice tbf
+
+// Creates a folder to save log files if it doesnt exist
+func createLogDir(dirname string) error {
+
+	err := os.MkdirAll(dirname, 0755)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 func WriteToConsole(s string) {
 	fmt.Println(s)
