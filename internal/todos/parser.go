@@ -86,7 +86,7 @@ func GetAll(file string) (found []TodoLine) {
 	linenum := 1
 	todo := TodoLine{
 		File:  file,
-		Lines: sm.NewSortedMap[int, string](),
+		Lines: sm.New[int, string](),
 	}
 
 	isTrailingLine := false
@@ -105,7 +105,7 @@ func GetAll(file string) (found []TodoLine) {
 				//reset todo
 				todo = TodoLine{
 					File:  file,
-					Lines: sm.NewSortedMap[int, string](),
+					Lines: sm.New[int, string](),
 				}
 			}
 		}
