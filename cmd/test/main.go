@@ -1,6 +1,6 @@
 package main
 
-import "TODOS_Logger/internal/console"
+import "TODOS_Logger/pkg/console"
 
 func main() {
 	var num1 int

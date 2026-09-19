@@ -2,12 +2,12 @@ package main
 
 import (
 	ae "TODOS_Logger/internal/app_error"
-	"TODOS_Logger/internal/console"
 	"TODOS_Logger/internal/exectime"
 	"TODOS_Logger/internal/help"
 	"TODOS_Logger/internal/logger"
 	"TODOS_Logger/internal/todos"
 	"TODOS_Logger/internal/walker"
+	"TODOS_Logger/pkg/console"
 	_ "embed"
 	"fmt"
 	"maps"
