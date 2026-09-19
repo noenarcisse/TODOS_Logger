@@ -2,7 +2,6 @@ package main
 
 import (
 	ae "TODOS_Logger/internal/app_error"
-	"TODOS_Logger/internal/exectime"
 	"TODOS_Logger/internal/help"
 	"TODOS_Logger/internal/todos"
 	"TODOS_Logger/internal/walker"
@@ -25,10 +24,10 @@ var templateHtml string
 type set[T comparable] = map[T]struct{}
 
 func main() {
-	exectime.Benchmark(todoLogger)
-}
 
-func todoLogger() {
+	defer func(s time.Time) {
+		fmt.Println("Exec time:", time.Since(s))
+	}(time.Now())
 
 	args := os.Args[1:]
 	if len(args) <= 0 {
@@ -108,9 +107,9 @@ func todoLogger() {
 		}
 
 		if _, ok := options["c"]; ok {
-			log := todos.CreateLog(todoLines) //todo maybe be unused for md file or html
-
-			todos.WriteToConsole(log)
+			// log := todos.CreateLog(todoLines) //todo maybe be unused for md file or html
+			fmt.Println("----------------")
+			todos.WriteToConsole(todoLines)
 			delete(options, "c")
 		}
 
@@ -145,8 +144,8 @@ func todoLogger() {
 		}
 
 	} else {
-		log := todos.CreateLog(todoLines) //todo maybe be unused for md file or html
+		// log := todos.CreateLog(todoLines) //todo maybe be unused for md file or html
 
-		todos.WriteToConsole(log)
+		todos.WriteToConsole(todoLines)
 	}
 }

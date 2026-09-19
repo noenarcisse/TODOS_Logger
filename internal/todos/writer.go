@@ -1,9 +1,12 @@
 package todos
 
 import (
+	"TODOS_Logger/pkg/console"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -19,8 +22,35 @@ func createLogDir(dirname string) error {
 	return nil
 }
 
-func WriteToConsole(s string) {
-	fmt.Println(s)
+func WriteToConsole(tds []TodoLine) {
+	resetColor := "\033[0m"
+	sb := strings.Builder{}
+
+	for _, tl := range tds {
+
+		sb.WriteString(string(console.UNDERLINE))
+		sb.WriteString(string(console.BLUE))
+		sb.WriteString(tl.File)
+		sb.WriteString(":")
+		sb.WriteString(strconv.Itoa(tl.LineNum))
+		sb.WriteString(resetColor)
+		sb.WriteString(string(console.END_U))
+		sb.WriteString(" : \n")
+
+		for k, v := range tl.Lines.Items() {
+
+			sb.WriteString(strconv.Itoa(k))
+			sb.WriteString(" : ")
+			sb.WriteString(string(console.ITALICS))
+			sb.WriteString(string(console.GREEN))
+			sb.WriteString(v)
+			sb.WriteString(resetColor)
+			sb.WriteString(string(console.END_I))
+			sb.WriteString("\n")
+		}
+		sb.WriteString("\n")
+	}
+	fmt.Println(sb.String())
 }
 func WriteToFile(s string) error {
 	t := time.Now()
